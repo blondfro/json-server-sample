@@ -2,18 +2,18 @@ import React, { useEffect, useState } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 
-import { getUsers } from "./api/usersApi";
+import { getAllUsers } from "./api/usersApi";
 
 function App() {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    async function getAllUsers() {
-      const results = await getUsers();
+    async function getUsers() {
+      const results = await getAllUsers();
 
       setUsers(results);
     }
-    getAllUsers();
+    getUsers();
   }, []);
 
   return (
