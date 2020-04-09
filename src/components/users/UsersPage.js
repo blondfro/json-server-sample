@@ -1,9 +1,24 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { getAllUsers } from "../../api/usersApi";
+import ListUsers from "./ListUsers";
 
-function UsersPage(props) {
+function UsersPage() {
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    async function getUsers() {
+      const results = await getAllUsers();
+
+      setUsers(results);
+    }
+    getUsers();
+  }, []);
+
   return (
     <>
-      <h1>Users Page</h1>
+      <h2>Users Page</h2>
+      <button className="btn btn-primary">Add User</button>
+      <ListUsers users={users} />
     </>
   );
 }
