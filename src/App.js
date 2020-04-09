@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from "react";
-import logo from "./logo.svg";
+import { Route, Switch } from "react-router-dom";
 import "./App.css";
 
 import { getAllUsers } from "./api/usersApi";
+import Navigation from "./components/common/Navigation";
+import HomePage from "./components/home/HomePage";
+import AboutPage from "./components/about/AboutPage";
+import UsersPage from "./components/users/UsersPage";
+import ManageUsersPage from "./components/users/ManageUsersPage";
 
 function App() {
   const [users, setUsers] = useState([]);
@@ -18,25 +23,14 @@ function App() {
 
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-      {users.map((user) => (
-        <div key={user.id}>
-          {user.first_name} {user.last_name}
-        </div>
-      ))}
+      <Navigation />
+      <Switch>
+        <Route exact path="/" component={HomePage} />
+        <Route path="/about" component={AboutPage} />
+        <Route path="/users" component={UsersPage} />
+        <Route path="/user/:id" component={ManageUsersPage} />
+        <Route path="/user" component={ManageUsersPage} />
+      </Switch>
     </div>
   );
 }
