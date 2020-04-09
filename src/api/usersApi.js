@@ -5,3 +5,21 @@ export function getAllUsers() {
     .then((response) => response.json())
     .catch((err) => console.log(err));
 }
+
+export function saveUser(user) {
+  return fetch(baseUrl + (user.id || ""), {
+    method: user.id ? "PUT" : "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify(user),
+  })
+    .then((response) => response.json())
+    .catch((err) => console.log(err));
+}
+
+export function deleteUser(userID) {
+  return fetch(baseUrl + userID, {
+    method: "DELETE",
+  })
+    .then((response) => response.json())
+    .catch((err) => console.log(err));
+}
