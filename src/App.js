@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Route, Switch } from "react-router-dom";
 import "./App.css";
 
@@ -7,16 +7,34 @@ import HomePage from "./components/home/HomePage";
 import AboutPage from "./components/about/AboutPage";
 import UsersPage from "./components/users/UsersPage";
 import ManageUsersPage from "./components/users/ManageUsersPage";
+import { getAllUsers } from "./api/usersApi";
 
 function App() {
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    async function getUsers() {
+      const results = await getAllUsers();
+
+      setUsers(results);
+    }
+    getUsers();
+  }, []);
+
   return (
     <div className="App">
       <Navigation />
       <Switch>
         <Route exact path="/" component={HomePage} />
         <Route path="/about" component={AboutPage} />
-        <Route path="/users" component={UsersPage} />
-        <Route path="/user/:id" component={ManageUsersPage} />
+        <Route
+          path="/users"
+          render={(props) => <UsersPage {...props} users={users} />}
+        />
+        <Route
+          path="/user/:id"
+          render={(props) => <ManageUsersPage {...props} users={users} />}
+        />
         <Route path="/user" component={ManageUsersPage} />
       </Switch>
     </div>

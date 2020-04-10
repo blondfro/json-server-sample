@@ -1,23 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { getAllUsers } from "../../api/usersApi";
+import React from "react";
 import ListUsers from "./ListUsers";
+import { Link } from "react-router-dom";
 
-function UsersPage() {
-  const [users, setUsers] = useState([]);
-
-  useEffect(() => {
-    async function getUsers() {
-      const results = await getAllUsers();
-
-      setUsers(results);
-    }
-    getUsers();
-  }, []);
-
+function UsersPage({ users, ...props }) {
   return (
     <>
       <h2>Users Page</h2>
-      <button className="btn btn-primary">Add User</button>
+      <Link to="/user">
+        <button className="btn btn-primary">Add User</button>
+      </Link>
+
       <ListUsers users={users} />
     </>
   );
