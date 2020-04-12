@@ -1,8 +1,16 @@
 import React, { useEffect, useState } from "react";
 import UserForm from "./UserForm";
+import { saveUser } from "../../api/usersApi";
 
 function ManageUsersPage({ users, ...props }) {
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState({
+    id: 0,
+    first_name: "",
+    last_name: "",
+    userName: "",
+    password: "",
+  });
+  const [saving, setSaving] = useState(false);
 
   const newUser = {
     id: 0,
@@ -32,7 +40,13 @@ function ManageUsersPage({ users, ...props }) {
     }));
   }
 
-  const handleSave = () => {};
+  const handleSave = (event) => {
+    event.preventDefault();
+    setSaving(true);
+    saveUser(user)
+      .then(console.log("success"))
+      .catch((err) => console.log(err));
+  };
 
   return (
     <>

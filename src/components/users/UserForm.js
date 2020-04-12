@@ -3,7 +3,7 @@ import TextInput from "../common/TextInput";
 
 function UserForm({ user, onChange, onSave, ...props }) {
   return (
-    <form onSubmit={onSave}>
+    <form onSubmit={() => onSave}>
       <h3>{user.id ? "Edit" : "Add"} Course</h3>
       <TextInput
         name="first_name"

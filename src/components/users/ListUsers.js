@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-function ListUsers({ users, ...props }) {
+function ListUsers({ users, onDelete, ...props }) {
   return (
     <table className="table">
       <thead>
@@ -29,7 +29,12 @@ function ListUsers({ users, ...props }) {
               </td>
               <td>{user.userName}</td>
               <td>
-                <button className="btn btn-outline-danger">Delete</button>
+                <button
+                  className="btn btn-outline-danger"
+                  onClick={() => onDelete(user.id)}
+                >
+                  Delete
+                </button>
               </td>
             </tr>
           );

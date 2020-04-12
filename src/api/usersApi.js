@@ -7,7 +7,7 @@ export function getAllUsers() {
 }
 
 export function saveUser(user) {
-  return fetch(baseUrl + (user.id || ""), {
+  return fetch(baseUrl + "/" + (user.id || ""), {
     method: user.id ? "PUT" : "POST",
     headers: { "content-type": "application/json" },
     body: JSON.stringify(user),
@@ -16,8 +16,8 @@ export function saveUser(user) {
     .catch((err) => console.log(err));
 }
 
-export function deleteUser(userID) {
-  return fetch(baseUrl + userID, {
+export function deleteUser(id) {
+  return fetch(baseUrl + "/" + id, {
     method: "DELETE",
   })
     .then((response) => response.json())
