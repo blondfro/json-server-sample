@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import UserForm from "./UserForm";
-import { saveUser } from "../../api/usersApi";
+import { saveNewUser, updateUser } from "../../api/usersApi";
 
 function ManageUsersPage({ users, ...props }) {
   const [user, setUser] = useState({
-    id: 0,
     first_name: "",
     last_name: "",
     userName: "",
@@ -13,7 +12,6 @@ function ManageUsersPage({ users, ...props }) {
   const [saving, setSaving] = useState(false);
 
   const newUser = {
-    id: 0,
     first_name: "",
     last_name: "",
     userName: "",
@@ -29,7 +27,6 @@ function ManageUsersPage({ users, ...props }) {
     };
 
     getUser();
-    console.log(user);
   }, []);
 
   function handleChange(event) {
@@ -43,15 +40,28 @@ function ManageUsersPage({ users, ...props }) {
   const handleSave = (event) => {
     event.preventDefault();
     setSaving(true);
-    saveUser(user)
-      .then(console.log("success"))
-      .catch((err) => console.log(err));
+    if (user.id) {
+      updateUser(user).then(console.log("user updated"));
+    } else {
+      saveNewUser(user)
+        .then(console.log("new user saved"))
+        .catch((err) => console.log(err));
+    }
+  };
+
+  const handleCancel = (event) => {
+    console.log("edit canceled");
   };
 
   return (
     <>
       <h2>Mangage User</h2>
-      <UserForm user={user} onChange={handleChange} onSave={handleSave} />
+      <UserForm
+        user={user}
+        onChange={handleChange}
+        onSave={handleSave}
+        onCancel={handleCancel}
+      />
     </>
   );
 }

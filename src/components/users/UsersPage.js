@@ -1,9 +1,19 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ListUsers from "./ListUsers";
 import { Link } from "react-router-dom";
-import { deleteUser } from "../../api/usersApi";
+import { getAllUsers, deleteUser } from "../../api/usersApi";
 
-function UsersPage({ users, ...props }) {
+function UsersPage() {
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    async function getUsers() {
+      const results = await getAllUsers();
+      setUsers(results);
+    }
+    getUsers();
+  }, []);
+
   const handleDelete = (id) => {
     deleteUser(id).then(console.log("user ID: " + id + " deleted"));
   };
