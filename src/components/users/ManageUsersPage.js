@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import UserForm from "./UserForm";
-import { saveNewUser, updateUser } from "../../api/usersApi";
+import { getUserByID, saveNewUser, updateUser } from "../../api/usersApi";
 
-function ManageUsersPage({ users, ...props }) {
+function ManageUsersPage(props) {
   const [user, setUser] = useState({
     first_name: "",
     last_name: "",
@@ -19,12 +19,15 @@ function ManageUsersPage({ users, ...props }) {
   };
 
   useEffect(() => {
-    const getUser = () => {
-      let id = parseInt(props.match.params.id);
-      const tmp = id > 0 ? users.find((user) => user.id === id) : newUser;
-      setUser(tmp);
-      // let tmp = users.find(user => user.id === props.match.params.id)
-    };
+    async function getUser() {
+      const id = parseInt(props.match.params.id);
+      if (id) {
+        const results = await getUserByID(id);
+        setUser(results);
+      } else {
+        setUser(newUser);
+      }
+    }
 
     getUser();
   }, []);

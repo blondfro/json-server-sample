@@ -27,11 +27,8 @@ function App() {
       <Switch>
         <Route exact path="/" component={HomePage} />
         <Route path="/about" component={AboutPage} />
-        <Route path="/users" component={UsersPage} />} />
-        <Route
-          path="/user/:id"
-          render={(props) => <ManageUsersPage {...props} users={users} />}
-        />
+        <Route path="/users" component={UsersPage} />
+        <Route path="/user/:id" component={ManageUsersPage} />
         <Route path="/user" component={ManageUsersPage} />
       </Switch>
     </div>
