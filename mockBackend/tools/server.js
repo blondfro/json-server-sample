@@ -25,7 +25,7 @@ server.get("/users/:id", (req, res) => {
 });
 
 server.post("/users", (req, res) => {
-  let id = db.users.length + 1;
+  let id = db.users[db.users.length - 1].id + 1;
   let newUser = { id, ...req.body };
   let newDb = [newUser, ...db.users].sort((a, b) => a.id - b.id);
   db.users = [...newDb];
