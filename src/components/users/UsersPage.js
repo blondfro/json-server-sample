@@ -5,18 +5,24 @@ import { getAllUsers, deleteUser } from "../../api/usersApi";
 
 function UsersPage() {
   const [users, setUsers] = useState([]);
+  const [update, setUpdate] = useState(true);
 
   useEffect(() => {
-    async function getUsers() {
-      const results = await getAllUsers();
-      setUsers(results);
+    if (update) {
+      getUsers();
     }
-    getUsers();
-  }, []);
+    setUpdate(false);
+  }, [update]);
 
-  const handleDelete = (id) => {
-    deleteUser(id).then(console.log("user ID: " + id + " deleted"));
-  };
+  async function getUsers() {
+    const results = await getAllUsers();
+    setUsers(results);
+  }
+
+  function handleDelete(id) {
+    deleteUser(id);
+    setUpdate(true);
+  }
 
   return (
     <>
