@@ -44,10 +44,13 @@ function ManageUsersPage(props) {
     event.preventDefault();
     setSaving(true);
     if (user.id) {
-      updateUser(user).then(console.log("user updated"));
+      updateUser(user).then(() => {
+        props.history.push("/users");
+      });
     } else {
       saveNewUser(user)
-        .then(console.log("new user saved"))
+        .then(() => {
+          props.history.push("/users")})
         .catch((err) => console.log(err));
     }
   };
